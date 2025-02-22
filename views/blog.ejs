@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/css/bootstrap') %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+</head>
+<body>
+    <%- include('./partials/components/nav') %>
+
+    <% if (locals.user && user.role==='Admin') { %>
+
+        <a class="btn btn-danger" href="/blog/delete/<%= blog._id %>">DELETE</a>
+     
+    <% } %>
+
+    <div class="container">
+
+        <img src="/uploads/<%= blog.coverimage %>" width="500" height="500"/>
+        <h1><%= blog.title %></h1>
+        <p><%= blog.content %></p>
+        <p>Posted by: <%= blog.createdby.fullname %></p>
+    </div>
+
+    <% if (locals.user) { %>
+
+        <div class="container">
+
+        <input id="comment-input" type="text" placeholder="Enter ur Comment" class="form-control">
+        <button id="submit-btn" class="btn btn-success">Post</button>
+        </div>
+
+    <% } %>
+
+    <div class="container">
+        <h1>Comments (<%= comments.length %>) </h1>
+        <% comments.forEach(comment => { %>
+            <li><%= comment.createdby.fullname %> - <%= comment.content %></li>
+        <% }) %>
+
+
+    </div>
+
+    <%- include('./partials/js/bootstrap') %>
+    <script>
+
+        const blogid = '<%= blog._id %>'
+
+        const input = document.getElementById('comment-input')
+        const btn = document.getElementById('submit-btn')
+
+        btn.addEventListener('click', createComment)
+
+        function createComment(){
+
+            fetch('/comment/create',{
+
+                method:'POST',
+                headers:{
+
+                    "Content-Type":"application/json",
+
+                },
+
+                body: JSON.stringify({ blogid, content: input.value})
+
+            }).then((e)=>window.location.reload())
+
+        }
+
+    </script>
+
+</body>
+</html>

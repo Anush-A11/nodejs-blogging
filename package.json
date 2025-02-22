@@ -1,0 +1,20 @@
+{
+  "name": "blogging",
+  "version": "1.0.0",
+  "description": "This is a Blogging Backend Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Ayyappan Annamalaiyan",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.9"
+  }
+}
